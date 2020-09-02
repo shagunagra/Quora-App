@@ -1,6 +1,9 @@
 package com.upgrad.quora.service.entity;
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,6 +23,9 @@ public class users {
     private  String dob;
     private  String role;
     private  String contactnumber;
+
+    public users() {
+    }
 
     public Long getUuid() {
         return uuid;
@@ -116,4 +122,25 @@ public class users {
     public void setContactnumber(String contactnumber) {
         this.contactnumber = contactnumber;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private question question;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private user_auth user_auth;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private answer answer;
+
+    @ManyToOne
+    @JoinColumn(name = "question_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private answer questions;
+
 }
